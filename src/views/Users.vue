@@ -10,17 +10,20 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import axios from "axios";
+import User from "@/models/User";
 
-@Component({
-  components: {},
-})
+@Component
 export default class Users extends Vue {
   users: string[] = [];
 
   created(): void {
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then((res) => res.json())
-      .then((users) => (this.users = users));
+    axios
+      .get<User[]>("https://jsonplaceholder.typicode.com/users")
+      .then((response) => response.data)
+      .then((users) => {
+        this.users = users.map((user) => user.name);
+      });
   }
 }
 </script>
