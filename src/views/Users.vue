@@ -11,7 +11,8 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import axios from "axios";
-import User from "@/models/User";
+import { User } from "@/models/user";
+import { LocalStorageUtils, Key } from "@/utils/localStorageUtils";
 
 @Component
 export default class Users extends Vue {
@@ -24,6 +25,7 @@ export default class Users extends Vue {
       .then((users) => {
         this.users = users.map((user) => user.name);
       });
+    LocalStorageUtils.setValue(Key.NAME, "John Doe");
   }
 }
 </script>
